@@ -2,14 +2,19 @@ package com.thales.model;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.Arrays;
+import java.util.List;
+
 public final class Vessel {
 	//
 	// private static final CargoValidator DEFAULT_VALIDATOR = new
 	// DefaultCargoValidator();
 
-	public static final Vessel VESSEL16 = new Vessel("Vessel 16", new Dimension(14, 50));
-	public static final Vessel VESSEL7 = new Vessel("Vessel 7", new Dimension(10, 16));
-	public static final Vessel VESSEL2 = new Vessel("Vessel 2", new Dimension(11, 19));
+	public static final Vessel VESSEL16 = new Vessel("Vessel 16", new Dimension(14, 50), Destination.values());
+	public static final Vessel VESSEL7 = new Vessel("Vessel 7", new Dimension(10, 16), Destination.AU05, Destination.AU17,
+			Destination.AU18, Destination.AU21);
+	public static final Vessel VESSEL2 = new Vessel("Vessel 2", new Dimension(11, 19), Destination.AU04, Destination.AU21,
+			Destination.AU21);
 
 	public static final Vessel[] VESSELS = { VESSEL16, VESSEL7, VESSEL2 };
 
@@ -17,9 +22,12 @@ public final class Vessel {
 
 	private final Dimension dimension;
 
-	private Vessel(String id, Dimension dimension) {
+	private final List<Destination> destinations;
+
+	private Vessel(String id, Dimension dimension, Destination... destinations) {
 		this.id = checkNotNull(id);
 		this.dimension = checkNotNull(dimension);
+		this.destinations = Arrays.asList(destinations);
 	}
 
 	public String getId() {
@@ -42,6 +50,10 @@ public final class Vessel {
 			size = width * height;
 		}
 
+	}
+
+	public boolean checkDestination(Item item) {
+		return destinations.contains(item.getDestination());
 	}
 
 	public boolean check(Item item, int x, int y) {

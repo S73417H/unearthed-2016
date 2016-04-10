@@ -46,8 +46,6 @@ public class VesselOptimizationView extends HBox {
 	Hashtable<Vessel, DeckView> boatiesTable = new Hashtable<>();
 
 
-	//TODO
-	Vessel v = Vessel.VESSEL2;
 
 	public VesselOptimizationView(ManifestOptimiser optimiser, List<Vessel> vessels) {
 		this.optimiser = optimiser;

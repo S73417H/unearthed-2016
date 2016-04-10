@@ -11,6 +11,7 @@ import java.util.stream.Stream;
 import org.jenetics.Chromosome;
 import org.jenetics.EnumGene;
 import org.jenetics.Genotype;
+import org.jenetics.Mutator;
 import org.jenetics.Optimize;
 import org.jenetics.PartiallyMatchedCrossover;
 import org.jenetics.PermutationChromosome;
@@ -75,13 +76,11 @@ public class ManifestOptimiser {
 		PermutationChromosome<Item> c = PermutationChromosome.of(seq,
 				vessels.stream().mapToInt((v) -> v.getDimension().size).sum());
 		final Engine<EnumGene<Item>, Double> engine = Engine.builder(new ManifestFitnessFunction(vessels), c)
-				.optimize(Optimize.MINIMUM).populationSize(200).maximalPhenotypeAge(50)
-				.alterers(new SwapMutator<>(0.2), new PartiallyMatchedCrossover<>(0.35)).build();
-
+				.optimize(Optimize.MINIMUM).populationSize(500).maximalPhenotypeAge(70)
+				.alterers(new SwapMutator<>(0.3), new PartiallyMatchedCrossover<>(0.5)).build();
 		EvolutionStatistics<Double, ?> statistics = EvolutionStatistics.ofNumber();
 
-		Phenotype<EnumGene<Item>, Double> best = engine.stream().limit(limit.bySteadyFitness(200)).peek(statistics)
-				.limit(10000)
+		Phenotype<EnumGene<Item>, Double> best = engine.stream().limit(limit.bySteadyFitness(2000)).peek(statistics)
 				.peek((r) -> func.apply(r.getGeneration(), statistics, create(r.getBestPhenotype().getGenotype())))
 				.collect(toBestPhenotype());
 

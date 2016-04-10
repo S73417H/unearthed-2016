@@ -35,7 +35,7 @@ public class MainWindow extends Application {
 		primaryStage.getIcons().add(image);
 		// Generate a random collection of store items.
 
-		List<Vessel> vessels = Arrays.asList(Vessel.VESSEL16, Vessel.VESSEL7, Vessel.VESSEL2);
+		List<Vessel> vessels = Arrays.asList(Vessel.VESSELS);
 
 		Store store = new Store();
 		

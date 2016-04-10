@@ -9,7 +9,7 @@ import org.jenetics.Genotype;
 import org.jenetics.util.ISeq;
 
 import com.thales.model.Item;
-import com.thales.model.Manifest;
+import com.thales.model.Urgency;
 import com.thales.model.Vessel;
 
 public class ManifestFitnessFunction implements Function<Genotype<EnumGene<Item>>, Double> {
@@ -24,23 +24,21 @@ public class ManifestFitnessFunction implements Function<Genotype<EnumGene<Item>
 	public Double apply(Genotype<EnumGene<Item>> gt) {
 		ISeq<Chromosome<EnumGene<Item>>> seq = gt.toSeq();
 		double tcost = 0;
-		for(int i = 0; i < vessels.size(); i++) {
+		for (int i = 0; i < vessels.size(); i++) {
 			Vessel vessel = vessels.get(i);
 			List<EnumGene<Item>> genes = gt.getChromosome().toSeq().subSeq(i, i + vessel.getDimension().size).asList();
 			double vcost = 0;
-			for (EnumGene<Item> c : gt.getChromosome().toSeq()) {
+			for (EnumGene<Item> c : genes) {
 				Item item = c.getAllele();
-//				int x = c.getAlleleIndex() % vessel.getDimension().width;
-//				int y = c.getAlleleIndex() / vessel.getDimension().width;
-				vcost += (item.getPriority().getValue() * item.getUrgency().getValue());
-//				fitness += ((Priority.LOWEST.getValue() - item.getPriority().getValue())
-//						* (Urgency.ROUTINE.getValue() - item.getUrgency().getValue()));
+				
+				double fact = item.getUrgency().getValue();
+				vcost += fact * (vessel.checkDestination(item) ? 0.5 : 1);
+				
 			}
-			tcost += vcost / genes.size();
+			tcost += vessel.getDimension().size * 100 / vcost;
 		}
 
-		
-		return tcost;
+		return tcost * 100 / vessels.size();
 	}
 
 }
