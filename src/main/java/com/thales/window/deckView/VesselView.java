@@ -14,7 +14,7 @@ public class VesselView extends Xform{
   {
     final PhongMaterial material = new PhongMaterial(Color.LIGHTGREY);
 
-    final Box vessel = new Box(v.getDimension().width, v.getDimension().height,1);
+    final Box vessel = new Box(v.getDimension().width * 100, v.getDimension().height * 100,1);
 
     vessel.setMaterial(material);
 
