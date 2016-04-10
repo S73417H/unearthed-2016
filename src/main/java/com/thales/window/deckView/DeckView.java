@@ -1,6 +1,7 @@
 package com.thales.window.deckView;
 
 import com.thales.model.Manifest;
+import com.thales.model.Vessel;
 import com.thales.window.deckView.CargoView.CargoView;
 import com.thales.window.deckView.CargoView.ItemView;
 import com.thales.window.deckView.color.DestinationColorFactory;
@@ -46,7 +47,7 @@ public class DeckView extends Pane
 
     final Xform axis = new Axis(10000);
 
-    final VesselView vesselView = new VesselView();
+    final VesselView vesselView;
 
     final Delta dragDelta = new Delta();
 
@@ -65,11 +66,12 @@ public class DeckView extends Pane
 
 
 
-    public DeckView()
+    public DeckView(Vessel v)
     {
         setMaxWidth(1600);
         cargoView = new CargoView();
 
+        vesselView = new VesselView(v);
         world.getChildren().addAll(axis, grid, vesselView, cargoView, arrow);
         grid.setVisible(false);
         axis.setVisible(false);

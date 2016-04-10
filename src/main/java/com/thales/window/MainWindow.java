@@ -47,7 +47,7 @@ public class MainWindow extends Application {
 		}
 
 		ManifestOptimiser optimiser = new ManifestOptimiser(store, vessels);
-		VesselOptimizationView view = new VesselOptimizationView(optimiser);
+		VesselOptimizationView view = new VesselOptimizationView(optimiser, vessels);
 
 		mainPane.getChildren().add(view);
 
