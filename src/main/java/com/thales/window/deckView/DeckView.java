@@ -72,7 +72,7 @@ public class DeckView extends Pane
         cargoView = new CargoView();
 
         vesselView = new VesselView(v);
-        world.getChildren().addAll(axis, grid, vesselView, cargoView, arrow);
+        world.getChildren().addAll(axis, grid, vesselView, cargoView);
         grid.setVisible(false);
         axis.setVisible(false);
 

@@ -21,6 +21,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Administrator on 8/04/2016.
@@ -115,12 +116,19 @@ public class VesselOptimizationView extends HBox {
 //					generationView.setBoxCount(m.getItems().size());
 //					deckView.updateDeck(m);
 
+					Manifest temp = new Manifest();
 					for(Manifest ms : m) {
 
 						boatiesTable.get(ms.getVessel()).updateDeck(ms);
+						temp.getItems().addAll(ms.getItems());
 					}
-//					manifestView.update(m);
-					generationView.setBoxCount(fitness.getCount());
+
+
+
+
+
+					manifestView.update(temp);
+					generationView.setBoxCount(m.stream().mapToLong((x) -> x.getItems().size()).sum());
 //					deckView.updateDeck(m.get(0));
 				}
 

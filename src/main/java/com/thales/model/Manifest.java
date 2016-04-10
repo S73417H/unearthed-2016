@@ -17,6 +17,12 @@ public class Manifest {
 		this.vessel = checkNotNull(vessel);
 	}
 
+	public Manifest()
+	{
+		vessel = null;
+	}
+
+
 	public Vessel getVessel() {
 		return vessel;
 	}
